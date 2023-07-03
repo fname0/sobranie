@@ -1,0 +1,571 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+* {
+    overflow-x: hidden; 
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'UbuntuLight';
+    src: url('../public/fonts/Ubuntu-Light.ttf');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'UbuntuReg';
+    src: url('../public/fonts/Ubuntu-Regular.ttf');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'UbuntuBold';
+    src: url('../public/fonts/Ubuntu-Bold.ttf');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'UbuntuMed';
+    src: url('../public/fonts/Ubuntu-Medium.ttf');
+    font-display: swap;
+}
+
+:root {
+    --justifyContentNavBar: flex-end;
+    --linksWidth: 50vw;
+    --defaultTitle: 42px;
+    --defaultText: 24px;
+    --heroTextContLeft: calc(50vw - 600px + 20px);
+    --heroTextTitle: 70px;
+    --hoverColorCat: rgb(76,76,76);
+    --padingCatsCont: 10vw;
+    --productCardContFlexBasis: 33%;
+    --productCardSizes: 33vw;
+    --photoWidth: 24vw;
+    --photoMargin: 0.5vw;
+}
+
+@media screen and (orientation: portrait) {
+    :root {
+        --heroTextTitle: 40px;
+        --hoverColorCat: rgb(125,125,125);
+        --padingCatsCont: 2.5vw;
+        --productCardContFlexBasis: 100%;
+        --productCardSizes: 95vw;
+        --photoWidth: 48vw;
+        --photoMargin: 1vw;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    :root {
+        --justifyContentNavBar: flex-start;
+        --linksWidth: 75vw;
+        --defaultTitle: 38px;
+        --defaultText: 22px;
+        --heroTextContLeft: 56px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    :root {
+        --defaultTitle: 30px;
+        --defaultText: 20px;
+    }
+}
+
+@media screen and (max-width: 959px) {
+    :root {
+        --heroTextContLeft: calc(50vw - 320px + 20px);
+    }
+}
+
+@media screen and (max-width: 479px) {
+    :root {
+        --heroTextContLeft: calc(50vw - 160px + 23px);
+    }
+}
+  
+.heroWrapper {
+    z-index: -1;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.heroTextCont {
+    position: absolute;
+    top: 20vh;
+    left: var(--heroTextContLeft);
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    width: calc(100vw - var(--heroTextContLeft));
+    color: white;
+}   
+
+.heroFilter {
+    background: rgb(0,0,0);
+    background: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+}
+
+.link {
+    list-style: none;
+    color: white;
+}
+
+.link:hover {
+    color: #e52b50 ;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    position: fixed;
+    width: 100vw;
+}
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: var(--justifyContentNavBar);
+}
+
+.links {
+    margin-right: calc(25% - 215px);
+    width: var(--linksWidth);
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.navbarBtn {
+    height: 40px;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: white;
+    outline: none;
+    border: none;
+    font-family: "UbuntuBold";
+    font-size: 16px;
+    margin-right: 24.51px;
+    color: black;
+}
+
+.navbarBtn:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.navbarBtn:active {
+    border-style: outset;
+    border: none;
+}
+
+.link {
+    font-family: 'UbuntuBold';
+    font-size: 16px;
+    list-style-type: none;
+    list-style: none;
+    text-decoration: none;
+}
+
+.link:hover {
+    cursor: pointer;
+    font-family: 'UbuntuBold';
+    font-size: 16px;
+    color: rgb(229,43,80);
+    transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.toogleNavbar {
+    z-index: 1;
+    position: fixed;
+    background-color: #e52b50;
+    top: 10px;
+    right: 10px;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.menuCont {
+    width: 100vw;
+    padding-top: 15vh;
+    padding-bottom: 15vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.light {
+    font-family: "UbuntuLight";
+}
+
+.reg {
+    font-family: 'UbuntuReg';
+}
+
+.med {
+    font-family: 'UbuntuMed';
+}
+
+.bold {
+    font-family: 'UbuntuBold';
+}
+
+.menuTitle {
+    font-size: var(--defaultTitle);
+    text-align: center;
+}
+
+.menuText {
+    max-width: 560px;
+    margin-top: 5vh;
+    margin-bottom: 12vh;
+    font-size: var(--defaultText);
+    text-align: center;
+    align-self: center;
+}
+
+.heroTextMed {
+    font-size: 24px;
+}
+
+.heroTextBold {
+    margin-top: 4.5vh;
+    font-size: var(--heroTextTitle);
+    max-width: 600px;
+}
+
+.heroTextLight {
+    margin-top: 3.5vh;
+    font-size: 18px;
+    max-width: 600px;
+}
+
+.heroBtn {
+    margin-top: 10vh;
+    height: 55px;
+    border-radius: 55px;
+    padding-left: 45px;
+    padding-right: 45px;
+    color: white;
+    background-color: #e52b50;
+    outline: none;
+    border: none;
+}
+
+.heroBtn:hover {
+    background-color: rgb(217,19,68);
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.catsCont {
+    padding-left: var(--padingCatsCont);
+    padding-right: var(--padingCatsCont);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cat {
+    font-size: 16px;
+}
+
+.cat:hover {
+    color: var(--hoverColorCat);
+    transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.active {
+    color: rgb(125, 125, 125);
+}
+
+.searchInputCont {
+    margin-top: 2vh;
+    padding-left: var(--padingCatsCont);
+    padding-right: var(--padingCatsCont);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchBtn {
+    border: 1px solid black;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 2px;
+}
+
+.searchInput {
+    height: 30px;
+    border: 1px solid black;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.products {
+    margin-top: 7vh;
+    padding-right: 5vw;
+    padding-left: 5vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.productCardCont {
+    flex-basis: var(--productCardContFlexBasis);
+    display: flex;
+    justify-content: center;
+    height: 670px;
+}
+
+.productCard {
+    width: var(--productCardSizes);
+    min-width: 215px;
+    max-width: 360px;
+}
+
+.addToBasketBtn {
+    margin-top: 4vh;
+    height: 55px;
+    border-radius: 55px;
+    padding-left: 35px;
+    padding-right: 35px;
+    color: white;
+    background-color: #e52b50;
+    outline: none;
+    border: none;
+    font-size: 20px;
+}
+
+.addToBasketBtn:hover {
+    background-color: rgb(217,19,68);
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.productTitle {
+    margin-top: 3vh;
+    font-size: 25px;
+    margin-bottom: 2.5vh;
+}
+
+.productPriceCont {
+    margin-top: 2.5vh;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.productPrice {
+    font-size: 25px;
+}
+
+.productMass {
+    font-size: 20px;
+}
+
+.deliveryCont {
+    width: 95vw;
+    max-width: 600px;
+    background-color: rgb(14, 41, 75);
+    margin: 0 auto;
+    padding: 60px;
+    padding-right: 80px;
+    color: white;
+}
+
+.deliveryTitle {
+    font-size: var(--defaultTitle);
+}
+
+.deliveryText {
+    margin-top: 3vh;
+    font-size: var(--defaultText);
+}
+
+.productCardImgCont {
+    position: relative;
+    width: var(--productCardSizes);
+    min-width: 215px;
+    max-width: 360px;
+    height: var(--productCardSizes);
+    min-height: 215px;
+    max-height: 360px;
+}
+
+.redLine {
+    width: 50px;
+    height: 3px;
+    background-color: #e52b50;
+    margin-top: 2.5vh;
+}
+
+.deliveryBtn {
+    margin-top: 5vh;
+    height: 60px;
+    border-radius: 55px;
+    padding-left: 25px;
+    padding-right: 25px;
+    color: white;
+    background-color: #e52b50;
+    outline: none;
+    border: none;
+    font-size: 16px;
+}
+
+.reserveCont {
+    background: rgb(0,0,0);
+    background: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    margin-top: 15vh;
+    width: 100vw;
+    padding: 60px;
+    padding-left: var(--heroTextContLeft);
+    color: white;
+    position: relative;
+}
+
+.reserveTextCont {
+    width: calc(100vw-140px);
+    max-width: 560px;
+}
+
+.galleryCont {
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.photo {
+    position: relative;
+    width: var(--photoWidth);
+    margin: var(--photoMargin);
+}
+
+.contacts {
+    background-color: rgb(14, 41, 75);
+    min-height: 100vh;
+    color: white;
+}
+
+.contactsTitle{
+    text-align: center;
+    font-size: var(--defaultTitle);
+    margin-top: 15vh;
+}
+
+.contactsText{
+    text-align: center;
+    font-size: var(--defaultText);
+    margin-top: 3vh;
+    width: 90vw;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact {
+    text-decoration: none;
+    color: white;
+    font-size: var(--defaultText);
+    margin-top: 3vh;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.contactsCont {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    max-width: 560px;
+    text-align: center;
+}
+
+.contactsAndFormCont {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.formBtn {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 2vh;
+    height: 55px;
+    border-radius: 55px;
+    padding-left: 45px;
+    padding-right: 45px;
+    color: white;
+    background-color: #e52b50;
+    outline: none;
+    border: none;
+}
+
+.heroBtn:hover {
+    background-color: rgb(217,19,68);
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.formInput {
+    width: 80vw;
+    max-width: 550px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 3vh;
+    height: 50px;
+    color: white;
+    border: 1px solid white;
+    padding-left: 5px;
+    font-size: 18px;
+}
+
+.largeInput {
+    height: 110px;
+}
+
+.dropdownNavbar {
+    z-index: 3;
+    position: fixed;
+    top: 80px;
+    right: 40px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+}
+
+.dropdownLinks {
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+}
+
+.dropdownLink {
+    font-size: 16px;
+    list-style-type: none;
+    list-style: none;
+    text-decoration: none;
+}
+
+.dropdownLink:hover {
+    cursor: pointer;
+    font-family: 'UbuntuBold';
+    font-size: 16px;
+    color: rgb(229,43,80);
+    transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
