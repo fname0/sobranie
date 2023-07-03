@@ -11,7 +11,7 @@ const Seo = ({title, keywords, description}) => {
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="keywords" content={keywords} />
         <meta charSet="utf-8"></meta>
-        <link rel="icon" href="http://localhost:3000/icon.ico" type="image/x-icon"/>
+        <link rel="icon" href="https://sobranie.vercel.app/icon.ico" type="image/x-icon"/>
         <link rel="apple-touch-icon" href="/icon.ico"/>
     </Head>
      );
