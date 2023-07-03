@@ -27,7 +27,7 @@ export default function Index() {
 
   return (
     <div className="App">
-        <Seo title="Ресторан-кафе Собрание" description="Шаблон для сайта ресторана" keywords="ресторан"/>
+        <Seo title="Ресторан-кафе Собрание" description="Ресторан-кафе №1 в Каменск-Шахтинском" keywords="ресторан"/>
 
         {isDesktop ? <header>
             <div className="navbar">
