@@ -102,7 +102,7 @@ export default function Index() {
             height={30}
             className='searchBtn'
             alt="search image"
-            onClick={setSearchValue(searchValueTemp)}/>
+            onClick={() => setSearchValue(searchValueTemp)}/>
             </div>
 
             <div className="products">
