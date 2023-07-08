@@ -50,7 +50,9 @@ export default function Index() {
 
     const decreaseProductCount = (id) => {
         let basketTemp = basket;
-        if (basket[id] === 1) {delete basketTemp[id];if (isBasketOpened && Object.keys(basketTemp).length === 0) setIsBasketOpened(false)}
+        if (basket[id] === 1) {delete basketTemp[id];if (isBasketOpened && Object.keys(basketTemp).length === 0) {setIsBasketOpened(false);setTimeout(() => {
+            scrollTo(0, lastScrollHeight);
+        }, 1)}}
         else {basketTemp[id]-=1}
         setBasket(basketTemp);
         setBasketLength(Object.values(basketTemp).reduce((a, b) => a + b, 0));
@@ -74,7 +76,9 @@ export default function Index() {
         cookie.set('priceSum', priceSum-(parseInt(products[id].price)*parseInt(basketTemp[id])));
         setPriceSum(priceSum-(parseInt(products[id].price)*parseInt(basketTemp[id])));
         delete basketTemp[id];
-        if (isBasketOpened && Object.keys(basketTemp).length === 0) setIsBasketOpened(false);
+        if (isBasketOpened && Object.keys(basketTemp).length === 0) {setIsBasketOpened(false);setTimeout(() => {
+            scrollTo(0, lastScrollHeight);
+        }, 1)}
         setBasket(basketTemp);
         setBasketLength(Object.values(basketTemp).reduce((a, b) => a + b, 0));
         cookie.set('basket', basketTemp);

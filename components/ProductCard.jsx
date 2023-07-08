@@ -17,7 +17,12 @@ export default function ProductCard(props) {
                         <p className="light productMass">{product.mass} гр.</p>
                     </div>
                 </div>
-                <button className="bold addToBasketBtn">В корзину</button>
+                {props.count === undefined ? <button className="bold addToBasketBtn" onClick={() => props.addToBasket(product.id)}>В корзину</button> :
+                <div className="changeProductCountCont">
+                    <div className="med productCount changeProductCount" onClick={() => props.decrease(product.id)}>-</div>
+                    <div className="bold productCount">{props.count}</div>
+                    <div className="med productCount changeProductCount" onClick={() => props.increase(product.id)}>+</div>
+                </div>}
             </div>
         </div>
     )
