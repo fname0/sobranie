@@ -45,6 +45,11 @@
     --productCardSizes: 33vw;
     --photoWidth: 24vw;
     --photoMargin: 0.5vw;
+    --basketBtnContSizes: 80px;
+    --basketBtnMarginTop: 18px;
+    --basketBtnContBorderRadius: 40px;
+    --basketCountTop: 130px;
+    --backToMainBtnML: 25px;
 }
 
 @media screen and (orientation: portrait) {
@@ -56,6 +61,11 @@
         --productCardSizes: 95vw;
         --photoWidth: 48vw;
         --photoMargin: 1vw;
+        --basketBtnContSizes: 60px;
+        --basketBtnMarginTop: 10px;
+        --basketBtnContBorderRadius: 30px;
+        --basketCountTop: 120px;
+        --backToMainBtnML: 5vw;
     }
 }
 
@@ -66,6 +76,7 @@
         --defaultTitle: 38px;
         --defaultText: 22px;
         --heroTextContLeft: 56px;
+        --backToMainBtnML: 5vw;
     }
 }
 
@@ -310,6 +321,7 @@ header {
 }
 
 .searchInput {
+    padding-left: 5px;
     height: 30px;
     border: 1px solid black;
     border-top-left-radius: 10px;
@@ -355,6 +367,28 @@ header {
 .addToBasketBtn:hover {
     background-color: rgb(217,19,68);
     transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.changeProductCountCont {
+    margin-top: 4vh;
+    display: flex;
+    gap: 15px;
+}
+
+.changeProductCount {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    background-color: #e52b50;
+    color: white;
+    font-size: 25px;
+}
+
+.productCount {
+    line-height: 40px;
+    font-size: 25px;
 }
 
 .productTitle {
@@ -568,4 +602,171 @@ header {
     font-size: 16px;
     color: rgb(229,43,80);
     transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.basketBtnCont {
+    width: var(--basketBtnContSizes);
+    height: var(--basketBtnContSizes);
+    z-index: 1;
+    position: fixed;
+    background-color: #e52b50;
+    top: 80px;
+    right: 10px;
+    border-radius: var(--basketBtnContBorderRadius);
+    text-align: center;
+}
+
+.basketBtn {
+    stroke:#ffffff;
+    width: 40px;
+    height: 40px;
+    margin-top: var(--basketBtnMarginTop);
+}
+
+.basketBtnCont:hover {
+    cursor: pointer;
+}
+
+.basketCount {
+    position: fixed;
+    top: var(--basketCountTop);
+    right: 10px;
+    background-color: red;
+    z-index: 2;
+    height: 25px;
+    width: 25px;
+    border-radius: 12.5px;
+    color: white;
+    text-align: center;
+    line-height: 25px;
+    font-size: 14px;
+}
+
+.backToMainBtn {
+    margin-top: 15px;
+    margin-left: var(--backToMainBtnML);
+    font-size: 25px;
+}
+
+.backToMainBtn:hover {
+    cursor: pointer;
+}
+
+.basketContDesktop {
+    width: 100vw;
+    max-width: 620px;
+    margin-right: auto;
+    margin-left: auto;
+    box-shadow: 0 0 30px #656565;
+    padding: 20px 40px 40px 40px;
+    margin-bottom: 60px;
+}
+
+.basketContMobile {
+    width: 90vw;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.basketTitle {
+    margin-top: 20px;
+    font-size: 32px;
+}
+
+.blackLine {
+    width: 100%;
+    background-color: black;
+    height: 1px;
+}
+
+.basketCardCont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.changeBasketCountCont {
+    display: flex;
+    gap: 5px;
+}
+
+.changeBasketCount {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+
+.changeBasketCount:hover {
+    cursor: pointer;
+}
+
+.basketDelete {
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    outline: none;
+    border: none;
+}
+
+.basketDelete:hover {
+    cursor: pointer;
+}
+
+.basketCardImg {
+    border-radius: 15px;
+}
+
+.priceSum {
+    font-size: 32px;
+    text-align: end;
+}
+
+.medPriceSum {
+    font-size: 20px;
+    text-align: end;
+}
+
+.basketFormInput {
+    width: 100%;
+    max-width: 550px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 3vh;
+    height: 50px;
+    color: black;
+    border: 2px solid black;
+    padding-left: 5px;
+    font-size: 18px;
+}
+
+.radioBasketCont {
+    margin-top: 3vh;
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+
+.radioBasket {
+    width: 16px;
+    height: 16px;
+}
+
+.mr {
+    margin-right: 7px;
+}
+
+.basketSendBtn {
+    width: 100%;
+    margin-top: 5vh;
+    margin-bottom: 6vh;
+    height: 60px;
+    color: white;
+    background-color: #e52b50;
+    outline: none;
+    border: none;
+    font-size: 20px;
 }

@@ -2,7 +2,8 @@ import Image from 'next/image';
 import Seo from '../components/Seo';
 import { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
-
+import Cookies from "universal-cookie";
+import BasketCard from '../components/BasketCard';
 
 export default function Index() {
     const [isDesktop, setIsDesktop] = useState(false);
@@ -16,19 +17,131 @@ export default function Index() {
     let searchValueTemp = "";
     const [searchValue, setSearchValue] = useState("");
     const [dropdownMenuOpened, setDropdownMenuOpened] = useState(false);
+    const [cookie, setCookie] = useState();
+    const [basket, setBasket] = useState({});
+    const [basketLength, setBasketLength] = useState(0);
+    const [isBasketOpened, setIsBasketOpened] = useState(false);
+    const [priceSum, setPriceSum] = useState(0);
+    const [lastScrollHeight, setLastScrollHeight] = useState(0);
+    const [delivery, setDelivery] = useState(true);
 
     useEffect(() => {
+        const cookie = new Cookies();
+        setCookie(cookie);
+        setBasket(cookie.get('basket') === undefined ? {} : cookie.get('basket'));
+        setBasketLength(cookie.get('basket') === undefined ? 0 : Object.values(cookie.get('basket')).reduce((a, b) => a + b, 0));
         setIsDesktop(window.innerWidth > window.innerHeight);
+        setPriceSum(cookie.get('priceSum') === undefined ? 0 : parseInt(cookie.get('priceSum')));
     }, [])
 
     const uploadPhone = function (e) {
         e.preventDefault();
     }
 
+    const addToBasket = (id) => {
+        let basketTemp = basket;
+        basketTemp[id] = 1;
+        cookie.set('basket', basketTemp);
+        setBasket(basketTemp);
+        setBasketLength(Object.values(basketTemp).reduce((a, b) => a + b, 0));
+        cookie.set('priceSum', priceSum+parseInt(products[id].price));
+        setPriceSum(priceSum+parseInt(products[id].price));
+    }
+
+    const decreaseProductCount = (id) => {
+        let basketTemp = basket;
+        if (basket[id] === 1) {delete basketTemp[id];if (isBasketOpened && Object.keys(basketTemp).length === 0) setIsBasketOpened(false)}
+        else {basketTemp[id]-=1}
+        setBasket(basketTemp);
+        setBasketLength(Object.values(basketTemp).reduce((a, b) => a + b, 0));
+        cookie.set('basket', basketTemp);
+        cookie.set('priceSum', priceSum-parseInt(products[id].price));
+        setPriceSum(priceSum-parseInt(products[id].price));
+    }
+
+    const increaseProductCount = (id) => {
+        let basketTemp = basket;
+        basketTemp[id]+=1;
+        setBasket(basketTemp);
+        setBasketLength(Object.values(basketTemp).reduce((a, b) => a + b, 0));
+        cookie.set('basket', basketTemp);
+        cookie.set('priceSum', priceSum+parseInt(products[id].price));
+        setPriceSum(priceSum+parseInt(products[id].price));
+    }
+
+    const deleteFromBasket = (id) => {
+        let basketTemp = basket;
+        cookie.set('priceSum', priceSum-(parseInt(products[id].price)*parseInt(basketTemp[id])));
+        setPriceSum(priceSum-(parseInt(products[id].price)*parseInt(basketTemp[id])));
+        delete basketTemp[id];
+        if (isBasketOpened && Object.keys(basketTemp).length === 0) setIsBasketOpened(false);
+        setBasket(basketTemp);
+        setBasketLength(Object.values(basketTemp).reduce((a, b) => a + b, 0));
+        cookie.set('basket', basketTemp);
+    }
+
   return (
-    <div className="App">
+    <div className="App" id="app">
         <Seo title="Ресторан-кафе Собрание" description="Ресторан-кафе №1 в Каменск-Шахтинском" keywords="ресторан"/>
 
+        {isBasketOpened ?
+        <div>
+            <div className="bold backToMainBtn" onClick={() => {setIsBasketOpened(false);setTimeout(() => {
+                scrollTo(0, lastScrollHeight);
+            }, 1)}}>← Главная</div>
+
+            <div className={isDesktop ? "basketContDesktop" : "basketContMobile"}>
+                <div className="bold basketTitle">Ваш заказ: </div>
+                <br />
+                <div className="blackLine"></div>
+                <br />
+                {Object.entries(products).filter(name => basket[name[1].id] !== undefined).map((product) => (
+                <BasketCard
+                    key={product[1].id}
+                    product={product[1]}
+                    addToBasket={addToBasket}
+                    count={basket[product[1].id]}
+                    decrease={decreaseProductCount}
+                    increase={increaseProductCount}
+                    delete={deleteFromBasket}
+                />
+                ))}
+                <div className="blackLine"></div>
+                <br />
+                <div className="med medPriceSum">Сумма: {priceSum} р.</div>
+                <form action="#" onSubmit={uploadPhone}>
+                    <input type="num" placeholder='Телефон' className='med basketFormInput' required/>
+                    <input type="text" placeholder='Имя' className='med basketFormInput' required/>
+                    <input type="num" placeholder='Время доставки' className='med basketFormInput' required/>
+                    <div className='radioBasketCont'>
+                        <input type="radio" id="dostavka" className='radioBasket' name='basketOption' defaultChecked onChange={(e) => setDelivery(e.target.checked)}/>
+                        <label for="contactChoice1" className='light mr'>Доставка курьером</label>
+                        
+                        <input type="radio" id="samovyvoz" className='radioBasket' name='basketOption' onChange={(e) => setDelivery(!e.target.checked)}/>
+                        <label for="contactChoice2" className='light'>Самовывоз</label>
+                    </div>
+                    {delivery ? 
+                    <input type="text" placeholder='Адрес доставки' className='med basketFormInput' required/> : 
+                    <label>
+                    <input list="adreses" placeholder='Адрес самовывоза' className='med basketFormInput' required/>
+                    <datalist id="adreses">
+                        <option value="пр. Карла-Маркса 62, Каменск-Шахтинский"/>
+                        <option value="ул. Чехова 43, Каменск-Шахтинский"/>
+                    </datalist></label>}
+                    <br />
+                    <br />
+                    {delivery ? 
+                    <label>
+                    <div className="med medPriceSum">Сумма: {priceSum} р.</div>
+                    <div className="med medPriceSum">Доставка: {priceSum >= 1000 ? 0 : 150} р.</div>
+                    <div className="bold priceSum">Итог: {priceSum + (priceSum >= 1000 ? 0 : 150)} р.</div></label> :
+                    <div className="bold priceSum">Итог: {priceSum} р.</div>}
+                    <button className="bold basketSendBtn" type='submit'>Оформить заказ</button>
+                </form>
+            </div>
+        </div>
+        :
+        <div>
         {isDesktop ? <header>
             <div className="navbar">
                 <ul className="links">
@@ -49,6 +162,11 @@ export default function Index() {
             className="toogleNavbar"
             onClick={() => {setDropdownMenuOpened(!dropdownMenuOpened)}}
             />}
+
+        {basketLength === 0 ? null : <div className="basketBtnCont" onClick={() => {setLastScrollHeight(document.documentElement.scrollTop);setIsBasketOpened(true)}}>
+            <svg role="img" className="basketBtn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path fill="none" strokeWidth="2" strokeMiterlimit="10" d="M44 18h10v45H10V18h10z"></path><path fill="none" strokeWidth="2" strokeMiterlimit="10" d="M22 24V11c0-5.523 4.477-10 10-10s10 4.477 10 10v13"></path></svg>
+        </div> }
+        {basketLength === 0 ? null : <div className="med basketCount">{basketLength}</div> }
 
         {dropdownMenuOpened ? <div className="dropdownNavbar">
                 <ul className="dropdownLinks">
@@ -110,6 +228,10 @@ export default function Index() {
                 <ProductCard
                     key={product[1].id}
                     product={product[1]}
+                    addToBasket={addToBasket}
+                    count={basket[product[1].id]}
+                    decrease={decreaseProductCount}
+                    increase={increaseProductCount}
                 />
                 ))}
             </div>
@@ -178,6 +300,7 @@ export default function Index() {
                     </form>
             </div>
         </div>
+        </div>}
     </div>
   )
 }
