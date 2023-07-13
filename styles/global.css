@@ -4,6 +4,7 @@
 
 * {
     overflow-x: hidden; 
+    overflow-y: var(--overflowY);
     margin: 0;
     padding: 0;
 }
@@ -50,6 +51,7 @@
     --basketBtnContBorderRadius: 40px;
     --basketCountTop: 130px;
     --backToMainBtnML: 25px;
+    --overflowY: auto;
 }
 
 @media screen and (orientation: portrait) {
@@ -164,6 +166,7 @@ header {
     padding-left: 30px;
     padding-right: 30px;
     background-color: white;
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
     outline: none;
     border: none;
     font-family: "UbuntuBold";
@@ -189,6 +192,8 @@ header {
     list-style-type: none;
     list-style: none;
     text-decoration: none;
+    color: white;
+    transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .link:hover {
@@ -359,12 +364,14 @@ header {
     padding-right: 35px;
     color: white;
     background-color: #e52b50;
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
     outline: none;
     border: none;
     font-size: 20px;
 }
 
 .addToBasketBtn:hover {
+    cursor: pointer;
     background-color: rgb(217,19,68);
     transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
@@ -383,8 +390,16 @@ header {
     outline: none;
     border: none;
     background-color: #e52b50;
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
     color: white;
     font-size: 25px;
+}
+
+
+.changeProductCount:hover {
+    cursor: pointer;
+    background-color: rgb(217,19,68);
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .productCount {
@@ -457,9 +472,16 @@ header {
     padding-right: 25px;
     color: white;
     background-color: #e52b50;
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
     outline: none;
     border: none;
     font-size: 16px;
+}
+
+.deliveryBtn:hover {
+    cursor: pointer;
+    background-color: rgb(217,19,68);
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .reserveCont {
@@ -488,6 +510,10 @@ header {
     position: relative;
     width: var(--photoWidth);
     margin: var(--photoMargin);
+}
+
+.photo:hover {
+    cursor: zoom-in;
 }
 
 .contacts {
@@ -547,8 +573,15 @@ header {
     padding-right: 45px;
     color: white;
     background-color: #e52b50;
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
     outline: none;
     border: none;
+}
+
+.formBtn:hover {
+    cursor: pointer;
+    background-color: rgb(217,19,68);
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .heroBtn:hover {
@@ -611,10 +644,17 @@ header {
     z-index: 1;
     position: fixed;
     background-color: #e52b50;
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
     top: 80px;
     right: 10px;
     border-radius: var(--basketBtnContBorderRadius);
     text-align: center;
+}
+
+.basketBtnCont:hover {
+    cursor: pointer;
+    background-color: rgb(217,19,68);
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .basketBtn {
@@ -767,7 +807,33 @@ header {
     height: 60px;
     color: white;
     background-color: #e52b50;
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
     outline: none;
     border: none;
     font-size: 20px;
+}
+
+.basketSendBtn:hover {
+    cursor: pointer;
+    background-color: rgb(217,19,68);
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.fullImgCont {
+    cursor: zoom-out;
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fullImg {
+    width: 90vw;
+    height: 90vh;
+    position: relative;
 }

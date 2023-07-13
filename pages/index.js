@@ -24,6 +24,7 @@ export default function Index() {
     const [priceSum, setPriceSum] = useState(0);
     const [lastScrollHeight, setLastScrollHeight] = useState(0);
     const [delivery, setDelivery] = useState(true);
+    const [openedImgId, setOpenedImgId] = useState(0);
 
     useEffect(() => {
         const cookie = new Cookies();
@@ -167,7 +168,7 @@ export default function Index() {
             onClick={() => {setDropdownMenuOpened(!dropdownMenuOpened)}}
             />}
 
-        {basketLength === 0 ? null : <div className="basketBtnCont" onClick={() => {setLastScrollHeight(document.documentElement.scrollTop);setIsBasketOpened(true)}}>
+        {basketLength === 0 ? null : <div className="basketBtnCont" onClick={() => {setLastScrollHeight(document.documentElement.scrollTop);setIsBasketOpened(true);scrollTo(0, 0)}}>
             <svg role="img" className="basketBtn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path fill="none" strokeWidth="2" strokeMiterlimit="10" d="M44 18h10v45H10V18h10z"></path><path fill="none" strokeWidth="2" strokeMiterlimit="10" d="M22 24V11c0-5.523 4.477-10 10-10s10 4.477 10 10v13"></path></svg>
         </div> }
         {basketLength === 0 ? null : <div className="med basketCount">{basketLength}</div> }
@@ -276,14 +277,14 @@ export default function Index() {
             <div className="med menuTitle">Галерея ресторана</div>
             <div className="light menuText">Посетив наш ресторан, вы получите незабываемые впечатления от атмосферы и вкусной европейской кухни</div>
             <div className="galleryCont">
-                <img src="/gallery/1.jpg" alt="photo" className='photo'/>
-                <img src="/gallery/2.jpg" alt="photo" className='photo'/>
-                <img src="/gallery/3.jpg" alt="photo" className='photo'/>
-                <img src="/gallery/4.jpg" alt="photo" className='photo'/>
-                <img src="/gallery/5.jpg" alt="photo" className='photo'/>
-                <img src="/gallery/6.jpg" alt="photo" className='photo'/>
-                <img src="/gallery/7.jpg" alt="photo" className='photo'/>
-                <img src="/gallery/8.jpg" alt="photo" className='photo'/>
+                <img src="/gallery/1.jpg" alt="photo" className='photo' onClick={() => {setOpenedImgId(1); document.documentElement.style.setProperty('--overflowY', "hidden")}}/>
+                <img src="/gallery/2.jpg" alt="photo" className='photo' onClick={() => {setOpenedImgId(2); document.documentElement.style.setProperty('--overflowY', "hidden")}}/>
+                <img src="/gallery/3.jpg" alt="photo" className='photo' onClick={() => {setOpenedImgId(3); document.documentElement.style.setProperty('--overflowY', "hidden")}}/>
+                <img src="/gallery/4.jpg" alt="photo" className='photo' onClick={() => {setOpenedImgId(4); document.documentElement.style.setProperty('--overflowY', "hidden")}}/>
+                <img src="/gallery/5.jpg" alt="photo" className='photo' onClick={() => {setOpenedImgId(5); document.documentElement.style.setProperty('--overflowY', "hidden")}}/>
+                <img src="/gallery/6.jpg" alt="photo" className='photo' onClick={() => {setOpenedImgId(6); document.documentElement.style.setProperty('--overflowY', "hidden")}}/>
+                <img src="/gallery/7.jpg" alt="photo" className='photo' onClick={() => {setOpenedImgId(7); document.documentElement.style.setProperty('--overflowY', "hidden")}}/>
+                <img src="/gallery/8.jpg" alt="photo" className='photo' onClick={() => {setOpenedImgId(8); document.documentElement.style.setProperty('--overflowY', "hidden")}}/>
             </div>
         </div>
 
@@ -297,14 +298,31 @@ export default function Index() {
                         <div className="light contact">пр. Карла-Маркса 62, Каменск-Шахтинский</div>
                     </div>
                     <form action="#" onSubmit={uploadPhone} className="contactsCont">
-                        <input type="num" placeholder='Телефон' className='med formInput'/>
-                        <input type="text" placeholder='Имя' className='med formInput'/>
-                        <textarea type="text" placeholder='Текст заявки' className='med formInput largeInput'/>
+                        <input type="num" placeholder='Телефон' className='med formInput' required/>
+                        <input type="text" placeholder='Имя' className='med formInput' required/>
+                        <textarea type="text" placeholder='Текст заявки' className='med formInput largeInput' required/>
                         <button className="bold formBtn" type='submit' style={{maxWidth: '300px'}}>Отправить заявку</button>
                     </form>
             </div>
         </div>
         </div>}
+
+        {openedImgId === 0 ? null :  
+        <div className="fullImgCont" onClick={() => {setOpenedImgId(0); document.documentElement.style.setProperty("--overflowY", "auto")}}>
+            <div className="fullImg">
+            <Image
+            priority
+            src={'/gallery/'+openedImgId+'.jpg'}
+            placeholder='blur'
+            blurDataURL='data:image/jpeg;base64,iBG[yG9G01%201t7M|~o_300M|~pWTIUt7t7xuWBIp-:oIRlxujEWBM}oeoL%MIo9Gj?kCR+j]tRIUxt%MozWBafbIWAae'
+            layout="fill"
+            objectFit="contain"
+            objectPosition="center"
+            alt="opened image"
+            style={{zIndex: -1}}
+            />
+            </div>
+        </div> }
     </div>
   )
 }
